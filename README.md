@@ -70,7 +70,6 @@ source vars
 ```
 
 Вы должны увидеть следующий вывод:
-Вывод
 
 ```
 NOTE: If you run ./clean-all, I will be doing a rm -rf on /home/sammy/openvpn-ca/keys
@@ -103,14 +102,14 @@ There are quite a few fields but you can leave some blank
 For some fields there will be a default value,
 If you enter '.', the field will be left blank.
 -----
-Country Name (2 letter code) [US]:
-State or Province Name (full name) [NY]:
-Locality Name (eg, city) [New York City]:
-Organization Name (eg, company) [DigitalOcean]:
+Country Name (2 letter code) [RU]:
+State or Province Name (full name) [Moscow]:
+Locality Name (eg, city) [Moscow]:
+Organization Name (eg, company) [MireaMoscowOrg]:
 Organizational Unit Name (eg, section) [Community]:
-Common Name (eg, your name or your server's hostname) [DigitalOcean CA]:
+Common Name (eg, your name or your server's hostname) [Mirea CA]:
 Name [server]:
-Email Address [admin@email.com]:
+Email Address [my@mail.my]:
 ```
 
 Теперь у нас есть центр сертификации, который мы сможем использовать для создания всех остальных необходимых нам файлов.
@@ -244,8 +243,8 @@ sudo sysctl -p
 ```
 
 Настройка правил UFW для сокрытия соединений клиентов
-Если вы следовали статье о настройке Ubuntu 16.04, упомянутой в начале этой статьи, у вас должен быть установлен и настроен файрвол UFW. Вне зависимости от того, используете ли вы файрвол для блокировки нежелательного трафика (что вам стоит делать практически всегда), в этой статье нам потребуется файрвол для манипулирования с входящим на сервер трафиком. Мы должны изменить файл настроек для сокрытия соединений (masquerading).
-Перед тем, как изменить этот файл, мы должны найти публичный интерфейс сети (public network interface). Для этого наберите команду:
+
+Далее мы должны найти публичный интерфейс сети (public network interface). Для этого наберите команду:
 
 ```
 ip route | grep default
@@ -253,6 +252,7 @@ ip route | grep default
 
 Публичный интерфейс должен следовать за словом “dev”. Например, в нашем случае этот интерфейс называется eth0:
 Вывод
+![p3](https://sun9-12.userapi.com/c206616/v206616376/4dfad/-dmyp6T_e9I.jpg)
 
 Зная название интерфейса откроем файл /etc/ufw/before.rules и добавим туда соответствующие настройки:
 
@@ -325,6 +325,8 @@ ip addr show tap0
 ```
 
 Если всё получилось, вывод должен выглядеть примерно следующим образом:
+![p3](https://sun9-12.userapi.com/c206616/v206616376/4dfad/-dmyp6T_e9I.jpg)
+
 
 Если всё в порядке, настроем сервис на автоматическое включение при загрузке сервера:
 sudo systemctl enable openvpn@server
